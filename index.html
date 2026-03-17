@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EnglishQuest 🌟</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="stars" id="stars"></div>
+
+  <!-- HOME SCREEN -->
+  <div class="screen active" id="screen-home">
+    <div class="home-card">
+      <div class="home-mascot">🦜</div>
+      <h1 class="home-title">EnglishQuest</h1>
+      <p class="home-subtitle">Learn English the fun way! 🚀</p>
+      <div class="home-badges">
+        <span class="badge">📚 Grammar</span>
+        <span class="badge">🔢 Counting</span>
+        <span class="badge">📍 Prepositions</span>
+      </div>
+      <button class="btn-start" id="btn-start">
+        <span>Start Adventure</span>
+        <span class="btn-arrow">▶</span>
+      </button>
+      <p class="home-hint">3 levels · 15 questions · Earn stars!</p>
+    </div>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div class="screen" id="screen-game">
+    <header class="top-bar">
+      <div class="lives" id="lives-display">
+        <span class="heart">❤️</span>
+        <span class="heart">❤️</span>
+        <span class="heart">❤️</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <span class="progress-label" id="progress-label">1 / 5</span>
+      </div>
+      <div class="score-box">
+        <span>⭐</span>
+        <span id="score-display">0</span>
+      </div>
+    </header>
+
+    <div class="level-badge" id="level-badge">Level 1</div>
+
+    <main class="question-area">
+      <div class="question-visual" id="question-visual">🏠</div>
+
+      <div class="question-card" id="question-card">
+        <p class="question-text" id="question-text">Loading...</p>
+        <div class="fill-blank" id="fill-blank" style="display:none">
+          <span id="blank-before"></span>
+          <span class="blank-slot" id="blank-slot">___</span>
+          <span id="blank-after"></span>
+        </div>
+      </div>
+
+      <div class="feedback-banner hidden" id="feedback-banner">
+        <span class="feedback-icon" id="feedback-icon">✅</span>
+        <span id="feedback-text">Correct!</span>
+      </div>
+
+      <div class="answers-grid" id="answers-grid"></div>
+
+      <button class="btn-next hidden" id="btn-next">Continue →</button>
+    </main>
+  </div>
+
+  <!-- LEVEL COMPLETE SCREEN -->
+  <div class="screen" id="screen-levelup">
+    <div class="levelup-card">
+      <div class="levelup-emoji" id="levelup-emoji">🎉</div>
+      <h2 class="levelup-title" id="levelup-title">Level Complete!</h2>
+      <p class="levelup-sub">Amazing job! Keep going!</p>
+      <div class="stars-row" id="stars-earned">⭐⭐⭐</div>
+      <button class="btn-start" id="btn-next-level">Next Level →</button>
+    </div>
+  </div>
+
+  <!-- GAME OVER SCREEN -->
+  <div class="screen" id="screen-gameover">
+    <div class="gameover-card">
+      <div class="gameover-emoji">💔</div>
+      <h2>Don't give up!</h2>
+      <p>You ran out of lives. Try again!</p>
+      <div class="final-score-box">Score: <strong id="gameover-score">0</strong></div>
+      <button class="btn-start" id="btn-restart-go">Try Again 🔄</button>
+    </div>
+  </div>
+
+  <!-- WIN SCREEN -->
+  <div class="screen" id="screen-win">
+    <div class="win-card">
+      <div class="win-trophy">🏆</div>
+      <h2 class="win-title">You're Amazing!</h2>
+      <p>You completed all levels!</p>
+      <div class="win-score-wrap">
+        <div class="win-score-label">Final Score</div>
+        <div class="win-score-value" id="win-score">0</div>
+        <div class="win-score-max">out of 150</div>
+      </div>
+      <div class="win-rank" id="win-rank">⭐ Superstar!</div>
+      <button class="btn-start" id="btn-play-again">Play Again 🔄</button>
+    </div>
+  </div>
+
+  <canvas id="confetti-canvas"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>
