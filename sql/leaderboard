@@ -1,0 +1,7 @@
+CREATE TABLE leaderboard (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  player_name TEXT NOT NULL,
+  score INTEGER NOT NULL,
+  level_reached INTEGER NOT NULL,
+  achieved_at TIMESTAMPTZ DEFAULT now()
+);

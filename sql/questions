@@ -1,0 +1,12 @@
+CREATE TABLE questions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  level INTEGER NOT NULL,          -- 1, 2 ou 3
+  type TEXT NOT NULL,              -- 'multiple', 'truefalse', 'blank'
+  visual TEXT,                     -- emoji da questão
+  question_text TEXT NOT NULL,
+  blank_before TEXT,               -- para tipo 'blank'
+  blank_after TEXT,                -- para tipo 'blank'
+  options JSONB NOT NULL,          -- ex: ["is", "are"]
+  answer TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
