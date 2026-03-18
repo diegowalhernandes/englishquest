@@ -4,7 +4,6 @@
 // =============================================
 
 // ── SUPABASE CONFIG ────────────────────────────
-// Substitua pelos seus dados em: supabase.com → Project Settings → API
 const SUPABASE_URL = "https://bfkiipxuilltkjrrztmx.supabase.co"
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJma2lpcHh1aWxsdGtqcnJ6dG14Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMjE2NzUsImV4cCI6MjA4ODY5NzY3NX0.auc6AGduIrb-05947GH8mUysRfIa9zlHiVdPNQso5kU"
 
@@ -148,13 +147,10 @@ const LEVELS = [
       }
     ]
   },
-
-  // ─────────────────────────────────────────────
   {
     name: "Level 4 · Possessives & Colors 🎨",
     emoji: "🎨",
     questions: [
-      // ── PRONOMES POSSESSIVOS ──
       {
         type: "multiple",
         visual: "🎒",
@@ -192,7 +188,6 @@ const LEVELS = [
         options: ["True ✅", "False ❌"],
         answer: "False ❌"
       },
-      // ── CORES E ADJETIVOS ──
       {
         type: "multiple",
         visual: "🍎",
@@ -234,13 +229,10 @@ const LEVELS = [
       }
     ]
   },
-
-  // ─────────────────────────────────────────────
   {
     name: "Level 5 · Plurals & Verbs 📖",
     emoji: "📖",
     questions: [
-      // ── PLURAL IRREGULAR ──
       {
         type: "multiple",
         visual: "👧👦👧",
@@ -278,7 +270,6 @@ const LEVELS = [
         options: ["True ✅", "False ❌"],
         answer: "True ✅"
       },
-      // ── VERBOS NO PRESENTE ──
       {
         type: "blank",
         visual: "🐶",
@@ -329,8 +320,8 @@ let state = {
   score: 0,
   lives: 3,
   answered: false,
-  playerName: '',       // nome digitado na home
-  sessionId: null,      // UUID da sessão atual no Supabase
+  playerName: '',
+  sessionId: null,
 };
 
 // ── DOM REFS ───────────────────────────────────
@@ -433,18 +424,16 @@ function launchConfetti(duration = 2500) {
 }
 
 // ── SUPABASE: CRIAR SESSÃO ─────────────────────
-// Chamado ao iniciar o jogo. Insere uma linha em game_sessions e
-// guarda o ID gerado para atualizar depois.
 async function createSession() {
   try {
     const { data, error } = await db
       .from('game_sessions')
       .insert({
-        player_name:    state.playerName,
-        score:          0,
+        player_name:     state.playerName,
+        score:           0,
         lives_remaining: 3,
-        level_reached:  1,
-        completed:      false,
+        level_reached:   1,
+        completed:       false,
       })
       .select('id')
       .single();
@@ -452,14 +441,11 @@ async function createSession() {
     if (error) throw error;
     state.sessionId = data.id;
   } catch (err) {
-    // Falha silenciosa: o jogo continua offline
     console.warn('Supabase createSession falhou:', err.message);
   }
 }
 
 // ── SUPABASE: ATUALIZAR SESSÃO ─────────────────
-// Chamado a cada acerto/erro e ao fim do jogo para manter o estado
-// salvo em tempo real.
 async function updateSession(extra = {}) {
   if (!state.sessionId) return;
   try {
@@ -469,7 +455,7 @@ async function updateSession(extra = {}) {
         score:           state.score,
         lives_remaining: state.lives,
         level_reached:   state.level + 1,
-        ...extra,          // ex: { completed: true }
+        ...extra,
       })
       .eq('id', state.sessionId);
 
@@ -480,7 +466,6 @@ async function updateSession(extra = {}) {
 }
 
 // ── SUPABASE: SALVAR NO LEADERBOARD ───────────
-// Chamado apenas quando o jogador VENCE (completa os 3 níveis).
 async function saveToLeaderboard() {
   try {
     const { error } = await db
@@ -498,7 +483,6 @@ async function saveToLeaderboard() {
 }
 
 // ── SUPABASE: BUSCAR RANKING ───────────────────
-// Retorna os 5 melhores para exibir na tela de vitória.
 async function fetchLeaderboard() {
   try {
     const { data, error } = await db
@@ -521,25 +505,20 @@ function loadQuestion() {
   const q = level.questions[state.questionIndex];
   state.answered = false;
 
-  // Level badge
   document.getElementById("level-badge").textContent = level.name;
 
-  // Progress
   const total = level.questions.length;
   const pct = (state.questionIndex / total) * 100;
   document.getElementById("progress-fill").style.width = pct + "%";
   document.getElementById("progress-label").textContent =
     `${state.questionIndex + 1} / ${total}`;
 
-  // Visual
   document.getElementById("question-visual").textContent = q.visual;
 
-  // Question text
   const qtEl = document.getElementById("question-text");
   const fbEl  = document.getElementById("fill-blank");
   const qCard = document.getElementById("question-card");
 
-  // Animate card
   qCard.style.animation = "none";
   void qCard.offsetWidth;
   qCard.style.animation = "";
@@ -556,11 +535,9 @@ function loadQuestion() {
     fbEl.style.display = "none";
   }
 
-  // Feedback
   const fb = document.getElementById("feedback-banner");
   fb.className = "feedback-banner hidden";
 
-  // Answers
   const grid = document.getElementById("answers-grid");
   grid.innerHTML = "";
   const isTwoOpt = q.options.length === 2;
@@ -574,7 +551,6 @@ function loadQuestion() {
     grid.appendChild(btn);
   });
 
-  // Hide next
   document.getElementById("btn-next").classList.add("hidden");
   updateLives();
   updateScore();
@@ -588,7 +564,6 @@ function checkAnswer(selected, btn, q) {
   const correct = selected === q.answer;
   const fb = document.getElementById("feedback-banner");
 
-  // Disable all buttons
   document.querySelectorAll(".answer-btn").forEach(b => b.disabled = true);
 
   if (correct) {
@@ -613,7 +588,6 @@ function checkAnswer(selected, btn, q) {
       `Try again! The answer is: "${q.answer}"`;
     playSound("wrong");
 
-    // Highlight correct answer
     document.querySelectorAll(".answer-btn").forEach(b => {
       if (b.textContent === q.answer) b.classList.add("selected-correct");
     });
@@ -623,10 +597,8 @@ function checkAnswer(selected, btn, q) {
   updateLives();
   updateScore();
 
-  // Salva progresso no Supabase após cada resposta (fire-and-forget)
   updateSession();
 
-  // Check game over
   if (state.lives <= 0) {
     setTimeout(showGameOver, 1400);
     return;
@@ -688,14 +660,12 @@ function advanceLevel() {
 // ── GAME OVER ─────────────────────────────────
 function showGameOver() {
   document.getElementById("gameover-score").textContent = state.score;
-
-  // Marca sessão como encerrada (sem completar)
   updateSession({ completed: false });
-
   showScreen("gameover");
 }
 
 // ── WIN ───────────────────────────────────────
+// ✅ CORREÇÃO: renderLeaderboard() agora é chamada com await
 async function showWin() {
   document.getElementById("win-score").textContent = state.score;
 
@@ -705,36 +675,26 @@ async function showWin() {
              :                       "📖 Keep Practicing!";
   document.getElementById("win-rank").textContent = rank;
 
-  // Salva sessão como completa e envia ao leaderboard
   await updateSession({ completed: true });
   await saveToLeaderboard();
-
-  // Busca e exibe o ranking
-  renderLeaderboard();
+  await renderLeaderboard(); // ✅ aguarda antes de exibir a tela
 
   launchConfetti(3500);
   showScreen("win");
 }
 
 // ── RENDERIZAR LEADERBOARD NA TELA DE VITÓRIA ─
+// ✅ CORREÇÃO: usa o elemento fixo do HTML, sem insertBefore dinâmico
 async function renderLeaderboard() {
-  // Cria ou seleciona o bloco de ranking na win screen
-  let lbEl = document.getElementById("leaderboard-block");
-  if (!lbEl) {
-    lbEl = document.createElement("div");
-    lbEl.id = "leaderboard-block";
-    lbEl.style.cssText = `
-      width: 100%; max-width: 340px; margin: 0 auto 20px;
-      background: #f0fce8; border-radius: 14px; padding: 14px 18px;
-    `;
-    // Insere antes do botão de jogar de novo
-    const btnPlayAgain = document.getElementById("btn-play-again");
-    btnPlayAgain.parentNode.insertBefore(lbEl, btnPlayAgain);
-  }
+  const lbEl = document.getElementById("leaderboard-block");
 
-  lbEl.innerHTML = '<p style="font-weight:800;color:#46a302;margin-bottom:8px;">🏅 Top 5 Players</p>';
+  // Mostra loading enquanto busca
+  lbEl.innerHTML = '<p style="font-weight:800;color:#46a302;margin-bottom:8px;">🏅 Top 5 Players</p>'
+                 + '<p style="color:#aaa;font-size:.85rem;">Loading...</p>';
 
   const rows = await fetchLeaderboard();
+
+  lbEl.innerHTML = '<p style="font-weight:800;color:#46a302;margin-bottom:8px;">🏅 Top 5 Players</p>';
 
   if (!rows.length) {
     lbEl.innerHTML += '<p style="color:#aaa;font-size:.85rem;">No records yet.</p>';
@@ -743,7 +703,8 @@ async function renderLeaderboard() {
 
   const medals = ["🥇","🥈","🥉","4️⃣","5️⃣"];
   rows.forEach((row, i) => {
-    const isYou = row.player_name === state.playerName && i === 0;
+    // ✅ CORREÇÃO: compara pelo score também para destacar o jogador atual com mais precisão
+    const isYou = row.player_name === state.playerName;
     lbEl.innerHTML += `
       <div style="
         display:flex; justify-content:space-between; align-items:center;
@@ -761,12 +722,10 @@ async function renderLeaderboard() {
 }
 
 // ── CAPTURAR NOME DO JOGADOR ───────────────────
-// Injeta o campo de nome na home screen dinamicamente.
 function injectNameInput() {
   const card = document.querySelector(".home-card");
   const btnStart = document.getElementById("btn-start");
 
-  // Cria o wrapper do input
   const wrapper = document.createElement("div");
   wrapper.style.cssText = "width:100%;margin-bottom:16px;";
   wrapper.innerHTML = `
@@ -786,6 +745,7 @@ function injectNameInput() {
         outline: none;
         color: #3c3c3c;
         transition: border-color .2s;
+        box-sizing: border-box;
       "
     />
   `;
@@ -795,7 +755,6 @@ function injectNameInput() {
   const input = document.getElementById("player-name-input");
   input.addEventListener("focus", () => input.style.borderColor = "#58cc02");
   input.addEventListener("blur",  () => input.style.borderColor = "#e0e0e0");
-  // Permite iniciar pelo Enter
   input.addEventListener("keydown", e => {
     if (e.key === "Enter") btnStart.click();
   });
@@ -803,32 +762,29 @@ function injectNameInput() {
 
 // ── RESTART ───────────────────────────────────
 async function resetGame() {
-  // Lê o nome (pode ter mudado se o jogador reiniciou)
   const input = document.getElementById("player-name-input");
   const name = input ? input.value.trim() : '';
-  state.playerName = name || 'Anonymous';
+  const playerName = name || 'Anonymous';
 
+  // ✅ Reconstrói o state completamente para evitar vazamento de dados entre sessões
   state = {
-    ...state,
     level: 0,
     questionIndex: 0,
     score: 0,
     lives: 3,
     answered: false,
+    playerName: playerName,
     sessionId: null,
   };
 
-  // Cria nova sessão no Supabase (async, não bloqueia o início)
-  createSession();
+  createSession(); // fire-and-forget: não bloqueia o início do jogo
 
   showScreen("game");
   loadQuestion();
 }
 
 // ── EVENT LISTENERS ───────────────────────────
-document.getElementById("btn-start").addEventListener("click", () => {
-  resetGame();
-});
+document.getElementById("btn-start").addEventListener("click", resetGame);
 document.getElementById("btn-next").addEventListener("click", nextQuestion);
 document.getElementById("btn-next-level").addEventListener("click", advanceLevel);
 document.getElementById("btn-restart-go").addEventListener("click", resetGame);

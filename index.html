@@ -31,7 +31,7 @@
       <p class="home-hint">3 levels · 15 questions · Earn stars!</p>
     </div>
   </div>
- 
+
   <!-- GAME SCREEN -->
   <div class="screen" id="screen-game">
     <header class="top-bar">
@@ -51,12 +51,12 @@
         <span id="score-display">0</span>
       </div>
     </header>
- 
+
     <div class="level-badge" id="level-badge">Level 1</div>
- 
+
     <main class="question-area">
       <div class="question-visual" id="question-visual">🏠</div>
- 
+
       <div class="question-card" id="question-card">
         <p class="question-text" id="question-text">Loading...</p>
         <div class="fill-blank" id="fill-blank" style="display:none">
@@ -65,18 +65,18 @@
           <span id="blank-after"></span>
         </div>
       </div>
- 
+
       <div class="feedback-banner hidden" id="feedback-banner">
         <span class="feedback-icon" id="feedback-icon">✅</span>
         <span id="feedback-text">Correct!</span>
       </div>
- 
+
       <div class="answers-grid" id="answers-grid"></div>
- 
+
       <button class="btn-next hidden" id="btn-next">Continue →</button>
     </main>
   </div>
- 
+
   <!-- LEVEL COMPLETE SCREEN -->
   <div class="screen" id="screen-levelup">
     <div class="levelup-card">
@@ -87,7 +87,7 @@
       <button class="btn-start" id="btn-next-level">Next Level →</button>
     </div>
   </div>
- 
+
   <!-- GAME OVER SCREEN -->
   <div class="screen" id="screen-gameover">
     <div class="gameover-card">
@@ -98,7 +98,7 @@
       <button class="btn-start" id="btn-restart-go">Try Again 🔄</button>
     </div>
   </div>
- 
+
   <!-- WIN SCREEN -->
   <div class="screen" id="screen-win">
     <div class="win-card">
@@ -111,12 +111,23 @@
         <div class="win-score-max">out of 250</div>
       </div>
       <div class="win-rank" id="win-rank">⭐ Superstar!</div>
+
+      <!-- ✅ CORREÇÃO: leaderboard-block fixo no HTML (não mais inserido dinamicamente) -->
+      <div id="leaderboard-block" style="
+        width: 100%;
+        max-width: 340px;
+        margin: 0 auto 20px;
+        background: #f0fce8;
+        border-radius: 14px;
+        padding: 14px 18px;
+      "></div>
+
       <button class="btn-start" id="btn-play-again">Play Again 🔄</button>
     </div>
   </div>
- 
+
   <canvas id="confetti-canvas"></canvas>
- 
+
   <!-- Supabase SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
