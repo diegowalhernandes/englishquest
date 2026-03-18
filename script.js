@@ -109,7 +109,7 @@ const LEVELS = [
       {
         type: "blank",
         visual: "🐱🪑",
-        text: "The cat is sitting:",
+        text: "The cat is sitting on top of the chair:",
         blankBefore: "The cat is",
         blankAfter: "the chair.",
         options: ["on", "under"],
@@ -117,8 +117,8 @@ const LEVELS = [
       },
       {
         type: "multiple",
-        visual: "🎒",
-        text: "The bag is __ the desk.\n(it's below the desk)",
+        visual: "🪑🎒",
+        text: "Where is the bag?\n(it is below the chair)",
         options: ["on", "in", "under", "next to"],
         answer: "under"
       },
@@ -140,7 +140,7 @@ const LEVELS = [
       },
       {
         type: "blank",
-        visual: "📱🖥️",
+        visual: "☕📱🖥️",
         text: "Where is the phone?",
         blankBefore: "The phone is",
         blankAfter: "the laptop and the cup.",
