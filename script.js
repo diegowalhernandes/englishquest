@@ -8,7 +8,6 @@
 const SUPABASE_URL = "https://bfkiipxuilltkjrrztmx.supabase.co"
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJma2lpcHh1aWxsdGtqcnJ6dG14Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMjE2NzUsImV4cCI6MjA4ODY5NzY3NX0.auc6AGduIrb-05947GH8mUysRfIa9zlHiVdPNQso5kU"
 
-
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -109,7 +108,7 @@ const LEVELS = [
       {
         type: "blank",
         visual: "🐱🪑",
-        text: "The cat is sitting on top of the chair:",
+        text: "The cat is sitting:",
         blankBefore: "The cat is",
         blankAfter: "the chair.",
         options: ["on", "under"],
@@ -117,8 +116,8 @@ const LEVELS = [
       },
       {
         type: "multiple",
-        visual: "🪑🎒",
-        text: "Where is the bag?\n(it is below the chair)",
+        visual: "🎒",
+        text: "The bag is __ the desk.\n(it's below the desk)",
         options: ["on", "in", "under", "next to"],
         answer: "under"
       },
@@ -146,6 +145,178 @@ const LEVELS = [
         blankAfter: "the laptop and the cup.",
         options: ["next to", "between"],
         answer: "between"
+      }
+    ]
+  },
+
+  // ─────────────────────────────────────────────
+  {
+    name: "Level 4 · Possessives & Colors 🎨",
+    emoji: "🎨",
+    questions: [
+      // ── PRONOMES POSSESSIVOS ──
+      {
+        type: "multiple",
+        visual: "🎒",
+        text: "The bag belongs to me.\nIt is ___.",
+        options: ["mine", "yours", "his", "hers"],
+        answer: "mine"
+      },
+      {
+        type: "truefalse",
+        visual: "🧢👦",
+        text: 'Is this sentence correct?\n"This is Tom\'s hat."',
+        options: ["True ✅", "False ❌"],
+        answer: "True ✅"
+      },
+      {
+        type: "blank",
+        visual: "🚲👧",
+        text: "The bike belongs to her.",
+        blankBefore: "The bike is",
+        blankAfter: ".",
+        options: ["hers", "his"],
+        answer: "hers"
+      },
+      {
+        type: "multiple",
+        visual: "⚽👦👦",
+        text: "The ball belongs to the boys.\nIt is ___.",
+        options: ["mine", "hers", "theirs", "yours"],
+        answer: "theirs"
+      },
+      {
+        type: "truefalse",
+        visual: "📖👩‍🏫",
+        text: 'Is this sentence correct?\n"This book is your."',
+        options: ["True ✅", "False ❌"],
+        answer: "False ❌"
+      },
+      // ── CORES E ADJETIVOS ──
+      {
+        type: "multiple",
+        visual: "🍎",
+        text: "What color is the apple?",
+        options: ["blue", "red", "green", "yellow"],
+        answer: "red"
+      },
+      {
+        type: "blank",
+        visual: "🐘",
+        text: "Describe the elephant:",
+        blankBefore: "The elephant is",
+        blankAfter: "and big.",
+        options: ["grey", "pink"],
+        answer: "grey"
+      },
+      {
+        type: "truefalse",
+        visual: "🍋",
+        text: 'Is this sentence correct?\n"The lemon is yellow."',
+        options: ["True ✅", "False ❌"],
+        answer: "True ✅"
+      },
+      {
+        type: "multiple",
+        visual: "🐸",
+        text: "What color is the frog?",
+        options: ["red", "blue", "green", "orange"],
+        answer: "green"
+      },
+      {
+        type: "blank",
+        visual: "🌊",
+        text: "Describe the ocean:",
+        blankBefore: "The ocean is",
+        blankAfter: "and deep.",
+        options: ["blue", "red"],
+        answer: "blue"
+      }
+    ]
+  },
+
+  // ─────────────────────────────────────────────
+  {
+    name: "Level 5 · Plurals & Verbs 📖",
+    emoji: "📖",
+    questions: [
+      // ── PLURAL IRREGULAR ──
+      {
+        type: "multiple",
+        visual: "👧👦👧",
+        text: "What is the plural of \"child\"?",
+        options: ["childs", "childen", "children", "childes"],
+        answer: "children"
+      },
+      {
+        type: "truefalse",
+        visual: "🦷🦷",
+        text: 'Is this sentence correct?\n"I have two tooths."',
+        options: ["True ✅", "False ❌"],
+        answer: "False ❌"
+      },
+      {
+        type: "blank",
+        visual: "🐟🐟🐟",
+        text: "Complete with the correct plural:",
+        blankBefore: "There are three",
+        blankAfter: "in the lake.",
+        options: ["fish", "fishes"],
+        answer: "fish"
+      },
+      {
+        type: "multiple",
+        visual: "🐭🐭",
+        text: "What is the plural of \"mouse\"?",
+        options: ["mouses", "mice", "mices", "mouse"],
+        answer: "mice"
+      },
+      {
+        type: "truefalse",
+        visual: "🦶🦶",
+        text: 'Is this sentence correct?\n"My feet are cold."',
+        options: ["True ✅", "False ❌"],
+        answer: "True ✅"
+      },
+      // ── VERBOS NO PRESENTE ──
+      {
+        type: "blank",
+        visual: "🐶",
+        text: "Complete the sentence:",
+        blankBefore: "The dog",
+        blankAfter: "a long tail.",
+        options: ["has", "have"],
+        answer: "has"
+      },
+      {
+        type: "multiple",
+        visual: "👩‍🍳",
+        text: "She ___ breakfast every morning.",
+        options: ["make", "makes", "making", "maked"],
+        answer: "makes"
+      },
+      {
+        type: "truefalse",
+        visual: "👦📚",
+        text: 'Is this sentence correct?\n"He like to read books."',
+        options: ["True ✅", "False ❌"],
+        answer: "False ❌"
+      },
+      {
+        type: "blank",
+        visual: "🐱😴",
+        text: "Complete the sentence:",
+        blankBefore: "The cat",
+        blankAfter: "all day long.",
+        options: ["sleeps", "sleep"],
+        answer: "sleeps"
+      },
+      {
+        type: "multiple",
+        visual: "👨‍👩‍👧‍👦",
+        text: "My family ___ in a big house.",
+        options: ["live", "lives", "living", "livs"],
+        answer: "lives"
       }
     ]
   }
@@ -528,10 +699,10 @@ function showGameOver() {
 async function showWin() {
   document.getElementById("win-score").textContent = state.score;
 
-  const rank = state.score >= 130 ? "🏆 Champion!"
-             : state.score >= 90  ? "⭐ Superstar!"
-             : state.score >= 50  ? "😊 Good Job!"
-             :                      "📖 Keep Practicing!";
+  const rank = state.score >= 220 ? "🏆 Champion!"
+             : state.score >= 160  ? "⭐ Superstar!"
+             : state.score >= 100  ? "😊 Good Job!"
+             :                       "📖 Keep Practicing!";
   document.getElementById("win-rank").textContent = rank;
 
   // Salva sessão como completa e envia ao leaderboard
